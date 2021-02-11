@@ -100,50 +100,7 @@ class Hello_World extends Widget_Base {
 	 * @access protected
 	 */
 	protected function _register_controls() {
-		$this->start_controls_section(
-			'section_content',
-			[
-				'label' => __( 'Content', 'elementor-hello-world' ),
-			]
-		);
 
-		$this->add_control(
-			'title',
-			[
-				'label' => __( 'Title', 'elementor-hello-world' ),
-				'type'  => Controls_Manager::TEXT,
-			]
-		);
-
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'section_style',
-			[
-				'label' => __( 'Style', 'elementor-hello-world' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-			]
-		);
-
-		$this->add_control(
-			'text_transform',
-			[
-				'label'     => __( 'Text Transform', 'elementor-hello-world' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => '',
-				'options'   => [
-					''           => __( 'None', 'elementor-hello-world' ),
-					'uppercase'  => __( 'UPPERCASE', 'elementor-hello-world' ),
-					'lowercase'  => __( 'lowercase', 'elementor-hello-world' ),
-					'capitalize' => __( 'Capitalize', 'elementor-hello-world' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .title' => 'text-transform: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->end_controls_section();
 	}
 
 	/**
@@ -156,73 +113,8 @@ class Hello_World extends Widget_Base {
 	 * @access protected
 	 */
 	protected function render() {
-		?>
-            <style>
 
-
-                .modal {
-                    background: #FFF;
-                    width: 200px;
-                    height: 100px;
-                    text-align: center;
-                    box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
-                    -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
-                    -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
-                    position: fixed;
-                    top: 50%;
-                    margin-top: -50px;
-                    left: 50%;
-                    margin-left: -100px;
-                    line-height: 25px;
-                    z-index: 99;
-                }
-                .modal a {
-                    line-height: 1em;
-                }
-                .modal-bg {
-                    background: #FFF;
-                    zoom: 1;
-                    opacity: 0.8;
-                    filter: alpha(opacity=80);
-                    position: fixed;
-                    top: 0;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                    z-index: 9;
-                }
-                .modal-link {
-                    background-color: #4CAF50; /* Green */
-                    border: none;
-                    color: white;
-                    padding: 15px 32px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 16px;
-                    alignment: center;
-                    border-radius: 12px;
-                }
-
-            </style>
-
-        <div style="background: #FFFFFF; padding-top: 100px; padding-bottom: 100px;align-content: center">
-
-        <a href="#" class="modal-link" >Create Product</a>
-        </div>
-        <div class="modal" style="display: none;">
-
-            <form name="newsletter-form" id="product_submit" method="post">
-                <input id="name" name="name" type="text" placeholder="Product name"/>
-                <input id="price" name="price" type="text" placeholder="Price"/>
-                <input type="submit" class="submit" value="Subscribe!"/>
-            </form>
-            <a href="#" class="close">close</a>
-        </div>
-        <div class="modal-bg" style="display: none;"></div>
-
-
-		<?php
+		$this->model();
 
 
 	}
@@ -237,10 +129,80 @@ class Hello_World extends Widget_Base {
 	 * @access protected
 	 */
 	protected function _content_template() {
+
+		$this->model();
+	}
+
+	protected function model() {
 		?>
-        <div class="title">
-            {{{ settings.title }}}
+        <style>
+
+
+            .modal {
+                background: #FFF;
+                width: 200px;
+                height: 100px;
+                text-align: center;
+                box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+                -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+                -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+                position: fixed;
+                top: 50%;
+                margin-top: -50px;
+                left: 50%;
+                margin-left: -100px;
+                line-height: 25px;
+                z-index: 99;
+            }
+
+            .modal a {
+                line-height: 1em;
+            }
+
+            .modal-bg {
+                background: #FFF;
+                zoom: 1;
+                opacity: 0.8;
+                filter: alpha(opacity=80);
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 9;
+            }
+
+            .modal-link {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                alignment: center;
+                border-radius: 12px;
+            }
+
+        </style>
+
+        <div style="background: #FFFFFF; padding-top: 100px; padding-bottom: 100px;align-content: center">
+
+            <a href="#" class="modal-link">Create Product</a>
         </div>
+        <div class="modal" style="display: none;">
+
+            <form name="newsletter-form" id="product_submit" method="post">
+                <input id="name" name="name" type="text" placeholder="Product name"/>
+                <input id="price" name="price" type="text" placeholder="Price"/>
+                <input type="submit" class="submit" value="Subscribe!"/>
+            </form>
+            <a href="#" class="close">close</a>
+        </div>
+        <div class="modal-bg" style="display: none;"></div>
 		<?php
 	}
+
+
 }
