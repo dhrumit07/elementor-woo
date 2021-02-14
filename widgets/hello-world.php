@@ -17,6 +17,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 class Hello_World extends Widget_Base {
+	public function __construct($data = [], $args = null) {
+		parent::__construct($data, $args);
+
+		wp_register_script( 'elementor-hello-world', plugins_url( '../assets/js/hello-world.js', __FILE__ ), ['jquery' ,'elementor-frontend' ], '1.0.0', true );
+
+		wp_localize_script( 'elementor-hello-world', 'ElementorWoo', array(
+			'root' => esc_url_raw( rest_url() ),
+			'nonce' => wp_create_nonce( 'wp_rest' ),
+		) );
+
+	}
+
 
 	/**
 	 * Retrieve the widget name.
@@ -101,6 +113,24 @@ class Hello_World extends Widget_Base {
 	 */
 	protected function _register_controls() {
 
+		$this->start_controls_section(
+			'section_content',
+			[
+				'label' => __( 'Content', 'elementor-hello-world' ),
+			]
+		);
+
+		$this->add_control(
+			'name',
+			[
+				'label' => __( 'Name', 'elementor-hello-world' ),
+				'type' => Controls_Manager::TEXT,
+			]
+		);
+
+		$this->end_controls_section();
+
+
 	}
 
 	/**
@@ -117,6 +147,16 @@ class Hello_World extends Widget_Base {
 		$this->model();
 
 
+//		var_dump($this->get_controls_settings());
+
+//		$settings = $this->get_settings_for_display();
+
+
+//        echo "<div id='firstSelectorClass' class='firstSelectorClass'>click me</div>";
+//		echo '<div class="title">';
+//		echo $this->get_settings('name');
+//		echo '</div>';
+
 	}
 
 	/**
@@ -129,7 +169,20 @@ class Hello_World extends Widget_Base {
 	 * @access protected
 	 */
 	protected function _content_template() {
+//		wp_localize_script( 'elementor-hello-world', 'ElementorWoo', array(
+//			'root' => esc_url_raw( rest_url() ),
+//			'nonce' => wp_create_nonce( 'wp_rest' ),
+//			'name' => $this->get_settings('name')
+//		) );
 
+
+		?>
+<!--        <div id="firstSelectorClass" class="firstSelectorClass">click me</div>-->
+<!---->
+<!--        <div class="title">-->
+<!--            {{{settings.name}}}-->
+<!--        </div>;-->
+		<?php
 		$this->model();
 	}
 
@@ -196,7 +249,7 @@ class Hello_World extends Widget_Base {
             <form name="newsletter-form" id="product_submit" method="post">
                 <input id="name" name="name" type="text" placeholder="Product name"/>
                 <input id="price" name="price" type="text" placeholder="Price"/>
-                <input type="submit" class="submit" value="Subscribe!"/>
+                <input type="submit" class="submit" value="create Product"/>
             </form>
             <a href="#" class="close">close</a>
         </div>

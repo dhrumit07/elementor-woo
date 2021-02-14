@@ -48,12 +48,12 @@ class Plugin {
 	 * @access public
 	 */
 	public function widget_scripts() {
-		wp_register_script( 'elementor-hello-world', plugins_url( '/assets/js/hello-world.js', __FILE__ ), [ 'jquery' ] );
-		wp_localize_script( 'elementor-hello-world', 'ElementorWoo', array(
-			'root' => esc_url_raw( rest_url() ),
-			'nonce' => wp_create_nonce( 'wp_rest' )
-		) );
-
+//		wp_register_script( 'elementor-hello-world', plugins_url( '/assets/js/hello-world.js', __FILE__ ), [ 'jquery', 'elementor-frontend'] );
+//		wp_localize_script( 'elementor-hello-world', 'ElementorWoo', array(
+//			'root' => esc_url_raw( rest_url() ),
+//			'nonce' => wp_create_nonce( 'wp_rest' )
+//		) );
+//
 
 	}
 
